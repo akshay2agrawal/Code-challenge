@@ -73,5 +73,5 @@ Unit tests are provided to ensure the functionality of the main components. The 
 To run the tests, execute the following command:
 
 ```sh
-python -m unittest test_asaphus.py
+python -m unittest test_main.py
 ```
