@@ -2,12 +2,13 @@ import unittest
 import numpy as np
 import cv2
 from scipy.spatial import ConvexHull
+from main import calculate_quadrilateral_area, dissect_image_into_patches, draw_quadrilateral, get_top_patches
 
 class TestImageProcessing(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.image_path = 'lena.jpg'
+        cls.image_path = 'test_image.jpg' // Change the image path 
         cls.color_image = cv2.imread(cls.image_path)
         if cls.color_image is None:
             raise ValueError(f"Image at path {cls.image_path} could not be loaded.")

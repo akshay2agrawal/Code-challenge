@@ -43,35 +43,32 @@ def draw_quadrilateral(image, points):
     cv2.polylines(image, [points], isClosed=True, color=(0, 0, 255), thickness=2)
     return image
 
-# Usage
-image_path = 'lena.jpg'
+if __name__ == '__main__':
+    # Path to the test image
+    image_path = 'test_image.jpg' # Change image path according to the local machine
 
-# Read the color image
-color_image = cv2.imread(image_path)
-if color_image is None:
-    raise ValueError(f"Image at path {image_path} could not be loaded.")
+    # Read the color image
+    color_image = cv2.imread(image_path)
+    if color_image is None:
+        raise ValueError(f"Image at path {image_path} could not be loaded.")
 
-# Convert the color image to grayscale
-gray_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
+    # Convert the color image to grayscale
+    gray_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2GRAY)
 
-# Dissect the grayscale image into patches
-patches, brightnesses, centers = dissect_image_into_patches(gray_image)
+    # Dissect the grayscale image into patches
+    patches, brightnesses, centers = dissect_image_into_patches(gray_image)
 
-# Get the top patches by brightness
-top_patches, top_centers = get_top_patches(patches, brightnesses, centers)
+    # Get the top patches by brightness
+    top_patches, top_centers = get_top_patches(patches, brightnesses, centers)
 
-# Calculate the area of the quadrilateral
-area = calculate_quadrilateral_area(top_centers)
-print(f"The area of the quadrilateral is {area} pixels.")
+    # Calculate the area of the quadrilateral
+    area = calculate_quadrilateral_area(top_centers)
+    print(f"The area of the quadrilateral is {area} pixels.")
 
-# Draw the quadrilateral on the original color image
-output_image = draw_quadrilateral(color_image, top_centers)
+    # Draw the quadrilateral on the original color image
+    output_image = draw_quadrilateral(color_image, top_centers)
 
-# Save the image
-output_image_path = 'test.png'
-cv2.imwrite(output_image_path, output_image)
+    # Save the image
+    output_image_path = 'test.png'
+    cv2.imwrite(output_image_path, output_image)
 
-# Optionally, display the image
-cv2.imshow('Image with Quadrilateral', output_image)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
